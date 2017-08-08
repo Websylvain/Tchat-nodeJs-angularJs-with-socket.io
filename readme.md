@@ -1,1 +1,1 @@
-Hello world ! 
+Hello world ! This is a basic chat working on a disociated "NodeJs Backend and "AngularJs interface".
