@@ -1,0 +1,102 @@
+<html ng-app="my-app">
+    <head>
+        <title>TCHAT NODEJS - ANGULARJS</title>
+        <link rel="stylesheet" href="./assets/styles.css">
+        <script
+  src="http://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+  <script src="http://localhost:9999/socket.io/socket.io.js"></script>      
+  <script src="./app/app.js"></script>
+        <script src="./app/ctrl/subscribeForm.js"></script>
+        <script src="./app/ctrl/tchat.js"></script>
+
+        <script src="./app/fct/socket.io.js"></script>
+        <script src="./app/fct/settings.js"></script>
+    </head>
+    <body>
+          <div ng-show="!login" class="overlay" ng-controller="SubscribeForm">
+                <div class="form">
+                    <form novalidate class="simple-form">
+                        <input type="hidden" ng-model="user.id" value="1551515"/>
+                        <label>Name: <input type="text" ng-model="form.login" /></label><br /><br />
+                        <label>E-mail: <input type="text" ng-model="form.mail" /></label><br /><br />
+                        <input type="submit" ng-click="subscribe(form)" value="Save" />
+                    </form>
+                </div>
+          </div>
+          <div class="container clearfix" ng-controller="tchat">
+            <div class="people-list" id="people-list">
+            <div class="search">
+                <input type="text" placeholder="search" />
+                <i class="fa fa-search"></i>
+            </div>
+            <ul class="list">
+                <li class="clearfix" ng-repeat="u in users">
+                    <img src="{{u.avatar}}" alt="avatar" />
+                    <div class="about">
+                        <div class="name">{{u.login}}</div>
+                        <div class="status">
+                        <i class="fa fa-circle online"></i> online
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            </div>
+            
+            <div class="chat">
+            <div class="chat-header clearfix">
+                <img src="{{user.avatar}}" alt="avatar" />
+                
+                <div class="chat-about">
+                <div class="chat-with">Vous êtes connecté en tant que {{user.login}}</div>
+                <div class="chat-num-messages">already 1 902 messages</div>
+                </div>
+                <i class="fa fa-star"></i>
+            </div> <!-- end chat-header -->
+            
+            <div class="chat-history">
+                <ul>
+                    <li class="clearfix" ng-repeat="m in messages">
+                        <div class="message-data" ng-class="{'align-right': m.user.login == user.login}">
+                        <span class="message-data-time" >10:10 AM, Today</span> &nbsp; &nbsp;
+                        <span class="message-data-name" >{{m.user.login}}</span> <i class="fa fa-circle me"></i>
+                        
+                        </div>
+                        <div class="message"  ng-class="{'my-message' : m.user.login != user.login, 'other-message': m.user.login == user.login}">
+                        {{m.message}}
+                        </div>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <div class="message-data">
+                        <span class="message-data-name"><i class="fa fa-circle online"></i> Vincent</span>
+                        <span class="message-data-time">10:31 AM, Today</span>
+                        </div>
+                        <i class="fa fa-circle online"></i>
+                        <i class="fa fa-circle online" style="color: #AED2A6"></i>
+                        <i class="fa fa-circle online" style="color:#DAE9DA"></i>
+                    </li>
+                
+                </ul>
+                
+            </div> <!-- end chat-history -->
+            
+            <div class="chat-message clearfix">
+                <textarea ng-model="message" name="message-to-send" id="message-to-send" placeholder ="Type your message" rows="3"></textarea>
+                        
+                <i class="fa fa-file-o"></i> &nbsp;&nbsp;&nbsp;
+                <i class="fa fa-file-image-o"></i>
+                
+                <button ng-click="send(message)">Send</button>
+
+            </div> <!-- end chat-message -->
+            
+            </div> <!-- end chat -->
+            
+        </div> <!-- end container -->
+    </body>
+</html>
