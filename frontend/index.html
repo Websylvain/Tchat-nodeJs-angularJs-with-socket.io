@@ -29,11 +29,11 @@
           <div class="container clearfix" ng-controller="tchat">
             <div class="people-list" id="people-list">
             <div class="search">
-                <input type="text" placeholder="search" />
+                <input type="text" ng-model="searchUser" placeholder="search" />
                 <i class="fa fa-search"></i>
             </div>
             <ul class="list">
-                <li class="clearfix" ng-repeat="u in users">
+                <li class="clearfix" ng-repeat="u in users | filter: searchUser">
                     <img src="{{u.avatar}}" alt="avatar" />
                     <div class="about">
                         <div class="name">{{u.login}}</div>
