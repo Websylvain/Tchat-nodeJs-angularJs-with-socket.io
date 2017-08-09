@@ -37,5 +37,6 @@ app.controller('tchat',["$scope", "socket","settings",
             message: msg
         }
         socket.emit("sendMessage", msgInfo);
+        $scope.message = null;
     }
 }]);
